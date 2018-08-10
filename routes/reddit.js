@@ -1,5 +1,5 @@
-var express = require('express');
-var router = express.Router();
+const express = require('express');
+const router = express.Router();
 const snoowrap = require('snoowrap');
 const { redditUsername, redditPw, clientId, clientSecret } = require('../secrets.js');
 
@@ -11,9 +11,10 @@ const r = new snoowrap({
   password: redditPw
 })
 
-/* GET home page. */
-router.get('/', function(req, res, next) {
-  r.getHot().map(post => post.title).then(console.log);
+// /reddit
+router.get('/', async (req, res, next) => {
+  const data = await r.getHot().map(post => post.title);
+  res.json(data);
 });
 
 module.exports = router;
