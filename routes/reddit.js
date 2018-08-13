@@ -30,18 +30,33 @@ router.get('/', async (req, res, next) => {
   }
 });
 
+const createCommentArr = (arr) => {
+  const returnArr = [];
+  arr.forEach(item => {
+    if (item.body) returnArr.push(item.body);
+    if (item.replies) {
+      item.replies.forEach(nestedItem => {
+        if (nestedItem.body) returnArr.push(nestedItem.body);
+      })
+    }
+  })
+  return returnArr;
+}
+
 const createCommentStr = (arr) => {
   let commentStr = '';
   arr.forEach(elem => {
     if (elem.body !== '') {
       commentStr += elem.body;
     }
-    if (elem[replies]) {
-      commentStr += createCommentStr(elem[replies])
+    if (elem.replies) {
+      commentStr += createCommentStr(elem.replies)
     }
   })
   return commentStr;
 }
+
+const createTopLevelCommentArr = (arr) => arr.map(item => item.body);
 
 router.get('/e', async (req, res, next) => {
   try {
@@ -49,9 +64,10 @@ router.get('/e', async (req, res, next) => {
       .getSubmission('967tme')
       .expandReplies({ limit: 500, depth: 1 })
       .comments;
-    //const a = createCommentStr(data);
-    console.log(`data.length: `, data.length);
-    res.json(data);
+    const x = createCommentStr(data);   //this line causes a 500 internal server error
+    console.log(`x: `, x);
+    const commentArr = createCommentArr(data);
+    res.send(commentArr);
   } catch (err) {
     next(err);
   }
