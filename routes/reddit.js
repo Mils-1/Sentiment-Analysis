@@ -18,8 +18,8 @@ const r = new snoowrap({
 
 //r.config({ continueAfterRatelimitError: true });
 
-// /reddit
-router.get('/', async (req, res, next) => {
+// /reddit/hot
+router.get('/hot', async (req, res, next) => {
   try {
     const data = await r.getHot();
     //post titles

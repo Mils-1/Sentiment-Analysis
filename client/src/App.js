@@ -1,26 +1,34 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
 import './App.css';
+import axios from 'axios';
 
 class App extends Component {
-  state = { users: [] }
+  constructor(props) {
+    super(props);
+    this.state = {
+      redditHotThreads: []
+    }
+  }
   async componentDidMount() {
-    fetch('/users')
-      .then(res => res.json())
-      .then(users => this.setState({ users }))
-    // const res = await fetch('/users');
-    // const users = await res.json();
-    // this.setState({ users });
+    const res = await axios.get('/reddit/hot');
+    console.log(res.data);
+    this.setState({
+      redditHotThreads: res.data
+    })
   }
   render() {
-    const { users } = this.state;
-    return (
-      <div className="App">
-        <ul>
-        {users.map(user => <li key={user.id}>{user.username}</li>)}
-        </ul>
-      </div>
-    );
+    const { redditHotThreads } = this.state;
+    if (!redditHotThreads.length) {
+      return (
+        <div>Loading...</div>
+      )
+    } else {
+      return (
+        <div>
+          mapped stuff
+        </div>
+      )
+    }
   }
 }
 
