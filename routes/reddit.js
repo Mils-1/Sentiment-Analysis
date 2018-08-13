@@ -43,10 +43,11 @@ const createCommentArr = (arr) => {
   return commentArr;
 }
 
-router.get('/e', async (req, res, next) => {
+router.get('/:subId/comments', async (req, res, next) => {
+  const { subId } = req.params;
   try {
     const data = await r
-      .getSubmission('96z0n0')
+      .getSubmission(subId)
       .expandReplies({ limit: 500, depth: 1 })
       .comments;
     const commentArr = createCommentArr(data);
