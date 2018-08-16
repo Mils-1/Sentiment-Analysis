@@ -1,35 +1,18 @@
 import React, { Component } from 'react';
 import './App.css';
+import { Route, Switch, Redirect } from 'react-router-dom';
 import axios from 'axios';
+import Navbar from './components/Navbar';
+import HotReddit from './components/HotReddit';
 
-class App extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      redditHotThreads: []
-    }
-  }
-  async componentDidMount() {
-    const res = await axios.get('/reddit/hot');
-    console.log(res.data);
-    this.setState({
-      redditHotThreads: res.data
-    })
-  }
+export default class App extends Component {
+
   render() {
-    const { redditHotThreads } = this.state;
-    if (!redditHotThreads.length) {
-      return (
-        <div>Loading...</div>
-      )
-    } else {
-      return (
-        <div>
-          mapped stuff
-        </div>
-      )
-    }
+    return (
+      <div className="container">
+        <Navbar />
+        <Route path="/about" component={HotReddit} />
+      </div>
+    )
   }
 }
-
-export default App;
