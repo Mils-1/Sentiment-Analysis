@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import { Menu, Segment } from 'semantic-ui-react';
-//<Link to="/about">About</Link>
+import { Menu, Segment, Icon } from 'semantic-ui-react';
 
 export default class Navbar extends Component {
   state = { activeItem: 'home' };
@@ -35,6 +34,15 @@ export default class Navbar extends Component {
             active={activeItem === 'Search'}
             onClick={this.handleItemClick}
           />
+          <Menu.Item>
+            <a
+              href="https://github.com/Mils-1/Sentiment-Analysis"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <Icon link name="github" size="big" />
+            </a>
+          </Menu.Item>
         </Menu>
       </Segment>
     );
