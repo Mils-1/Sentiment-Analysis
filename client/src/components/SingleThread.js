@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 
-export default class SearchReddit extends Component {
+export default class SingleThread extends Component {
   constructor(props) {
     super(props);
     this.state = {
