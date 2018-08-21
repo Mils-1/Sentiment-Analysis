@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import { Item } from 'semantic-ui-react';
+import { Link } from 'react-router-dom';
 import { Container, Divider } from 'semantic-ui-react';
 
-const handleThumbnailData = source => {
+const normalizeThumbnailData = source => {
   if (source === 'self' || source === 'default') {
     return '';
   } else {
@@ -11,14 +12,14 @@ const handleThumbnailData = source => {
 };
 
 const SingleThread = props => {
-  const thumbnail = handleThumbnailData(props.thumbnail);
+  const thumbnail = normalizeThumbnailData(props.thumbnail);
   return (
     <Item>
       {console.log(props)}
       <Item.Image size="small" src={thumbnail} />
 
       <Item.Content>
-        <Item.Header as="a">{props.title}</Item.Header>
+        <Item.Header as={Link} to={`/submissions/${props.id}`}>{props.title}</Item.Header>
         <Item.Description>
           <p>{`/r/${props.subreddit}`}</p>
           <p>{}</p>

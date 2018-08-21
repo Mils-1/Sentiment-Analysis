@@ -27,7 +27,7 @@ export default class HotReddit extends Component {
         <div>
           <Item.Group>
             {hotThreads.map(thread => {
-              return <SingleThread {...thread} key={thread.permalink} />;
+              return <SingleThread {...thread} key={thread.id} />;
             })}
           </Item.Group>
         </div>
