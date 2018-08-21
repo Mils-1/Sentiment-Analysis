@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
 import { Item } from 'semantic-ui-react';
 import axios from 'axios';
 import SingleThread from './SingleThread';
@@ -25,7 +24,7 @@ export default class HotReddit extends Component {
     } else {
       return (
         <div>
-          <Item.Group>
+          <Item.Group divided>
             {hotThreads.map(thread => {
               return <SingleThread {...thread} key={thread.id} />;
             })}
