@@ -10,11 +10,13 @@ export default class App extends Component {
     return (
       <div className="container">
         <Navbar />
-        <Switch>
-          <Route exact path="/home" component={HotReddit} />
-          <Route exact path="/about" component={HotReddit} />
-          <Route exact path="/search" component={SearchReddit} />
-        </Switch>
+        <main>
+          <Switch>
+            <Route exact path="/" component={HotReddit} />
+            <Route exact path="/about" component={HotReddit} />
+            <Route exact path="/search" component={SearchReddit} />
+          </Switch>
+        </main>
       </div>
     );
   }

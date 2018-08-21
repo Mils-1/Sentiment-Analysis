@@ -1,27 +1,33 @@
 import React, { Component } from 'react';
-import axios from 'axios';
+import { Item } from 'semantic-ui-react';
+import { Container, Divider } from 'semantic-ui-react';
 
-export default class SingleThread extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      redditHotThreads: []
-    }
+const handleThumbnailData = source => {
+  if (source === 'self' || source === 'default') {
+    return '';
+  } else {
+    return source;
   }
-  async componentDidMount() {
-    const res = await axios.get('/reddit/hot');
-    console.log(res.data);
-    this.setState({
-      redditHotThreads: res.data
-    })
-  }
-  render() {
-    return (
-      <div>
-        <h1>Provide a link to a reddit comment thread</h1>
-        <input type='text'/>
-      </div>
-    )
-  }
-}
+};
+
+const SingleThread = props => {
+  const thumbnail = handleThumbnailData(props.thumbnail);
+  return (
+    <Item>
+      {console.log(props)}
+      <Item.Image size="small" src={thumbnail} />
+
+      <Item.Content>
+        <Item.Header as="a">{props.title}</Item.Header>
+        <Item.Description>
+          <p>{`/r/${props.subreddit}`}</p>
+          <p>{}</p>
+        </Item.Description>
+      </Item.Content>
+    </Item>
+  );
+};
+
+export default SingleThread;
+
 
