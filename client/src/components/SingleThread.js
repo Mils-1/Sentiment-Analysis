@@ -3,19 +3,20 @@ import { Item } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
 import { Container, Divider } from 'semantic-ui-react';
 
-const normalizeThumbnailData = source => {
-  if (source === 'self' || source === 'default') {
+const normalizeThumbnailLinks = source => {
+  try {
+    const newUrl = new URL(source);
+    return newUrl;
+  } catch (err) {
     return 'http://www.portofinoselecta.com/images/joomlart/demo/default.jpg';
-  } else {
-    return source;
   }
 };
 
 const SingleThread = props => {
-  const thumbnail = normalizeThumbnailData(props.thumbnail);
+  const thumbnail = normalizeThumbnailLinks(props.thumbnail);
+  console.log(props);
   return (
     <Item>
-      {console.log(props)}
       <Item.Image size="small" src={thumbnail} />
 
       <Item.Content>
