@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Item } from 'semantic-ui-react';
 import axios from 'axios';
 import SingleThread from './SingleThread';
+import '../App.css';
 
 export default class HotReddit extends Component {
   constructor(props) {
@@ -23,7 +24,7 @@ export default class HotReddit extends Component {
       return <div>Loading...</div>;
     } else {
       return (
-        <div>
+        <div className="main-container">
           <Item.Group divided>
             {hotThreads.map(thread => {
               return <SingleThread {...thread} key={thread.id} />;
