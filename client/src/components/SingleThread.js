@@ -12,20 +12,21 @@ const normalizeThumbnailLinks = source => {
   }
 };
 
-const SingleThread = props => {
-  const thumbnail = normalizeThumbnailLinks(props.thumbnail);
+const SingleThread = ( { id, thumbnail, url, title, subreddit, permalink }) => {
+  const normalizedThumbnail = normalizeThumbnailLinks(thumbnail);
   return (
     <Item>
-      <a href={props.url}>
-        <Item.Image size="small" src={thumbnail} />
+      <a href={url}>
+        <Item.Image size="small" src={normalizedThumbnail} />
       </a>
 
       <Item.Content>
-        <Item.Header as={Link} to={`/submissions/${props.id}`}>
-          {props.title}
+        <Item.Header as={Link} to={`/submissions/${id}`}>
+          {title}
         </Item.Header>
         <Item.Description>
-          <p>{`/r/${props.subreddit}`}</p>
+          <p>{`/r/${subreddit}`}</p>
+          <a href={`http://reddit.com${permalink}`}>permalink</a>
         </Item.Description>
       </Item.Content>
     </Item>
