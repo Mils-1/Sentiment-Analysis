@@ -12,7 +12,8 @@ const normalizeThumbnailLinks = source => {
   }
 };
 
-const SingleThread = ( { id, thumbnail, url, title, subreddit, permalink }) => {
+const SingleThread = props => {
+  const { id, thumbnail, url, title, subreddit, permalink } = props;
   const normalizedThumbnail = normalizeThumbnailLinks(thumbnail);
   return (
     <Item>
