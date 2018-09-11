@@ -5,10 +5,12 @@
   "dependencies": {
     "axios": "^0.18.0",
     "react": "^16.4.2",
+    "react-d3-cloud": "^0.6.0",
     "react-dom": "^16.4.2",
     "react-router-dom": "^4.3.1",
     "react-scripts": "1.1.4",
-    "semantic-ui-react": "^0.82.2"
+    "semantic-ui-react": "^0.82.2",
+    "sentiment": "^5.0.1"
   },
   "scripts": {
     "start": "react-scripts start",

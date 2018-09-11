@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import formatDataForD3Cloud from '../sentiment';
 
 export default class SingleThreadView extends Component {
   constructor(props) {
@@ -10,9 +11,10 @@ export default class SingleThreadView extends Component {
   }
   async componentDidMount() {
     const { subId } = this.props.match.params;
-    console.log(`this.props: `, this.props);
     const res = await axios.get(`/reddit/${subId}/comments`);
     console.log(res.data);
+    const test = formatDataForD3Cloud(res.data);
+    console.log(`test: `,test);
     this.setState({
       comments: res.data
     });
