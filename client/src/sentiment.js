@@ -20,6 +20,20 @@ const addToObj = (obj, tokenArr) => {
   });
 };
 
+const createArrFromTokenObj = (tokenObj) => {
+  const arr = [];
+  for(let token in tokenObj) {
+    arr.push({ [token]: tokenObj[token]} )
+  }
+  return arr;
+}
+
+const formatData = (arr) => {
+  return arr.map(element => {
+    console.log(element);
+  })
+}
+
 /** @param {array} data */
 const formatDataForD3Cloud = data => {
   const sentimentData = createSentimentArr(data);
@@ -32,12 +46,17 @@ const formatDataForD3Cloud = data => {
     addToObj(positiveTokenObj, positive);
     addToObj(negativeTokenObj, negative);
   });
+  const positiveTokenArr = createArrFromTokenObj(positiveTokenObj);
+  const negativeTokenArr = createArrFromTokenObj(negativeTokenObj);
+
 
   console.log(`obj:`, {
     totalScore,
     avgScore,
     positiveTokenObj,
-    negativeTokenObj
+    negativeTokenObj,
+    positiveTokenArr,
+    negativeTokenArr
   });
   return sentimentData;
 };
