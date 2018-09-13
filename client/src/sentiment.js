@@ -65,7 +65,6 @@ const summarizeRawDataForSentiment = data => {
     negativeD3TokenArr
   };
 
-  console.log({ summarizedData });
   return summarizedData;
 };
 

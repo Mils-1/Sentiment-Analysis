@@ -14,7 +14,6 @@ export default class SingleThreadView extends Component {
   async componentDidMount() {
     const { subId } = this.props.match.params;
     const res = await axios.get(`/reddit/${subId}/comments`);
-    console.log(`res.data: `, res.data);
     const d3Data = summarizeRawDataForSentiment(res.data);
     console.dir(d3Data);
     this.setState({
