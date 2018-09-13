@@ -7,9 +7,7 @@ const createSentimentArr = data => {
 };
 
 const calculateRawScore = data => {
-  return data.reduce((acc, comment) => {
-    return acc + comment.score;
-  }, 0);
+  return data.reduce((acc, comment) => acc + comment.score, 0);
 };
 
 /** @param {object} obj */
@@ -20,57 +18,55 @@ const addToObj = (obj, tokenArr) => {
   });
 };
 
-const createArrFromTokenObj = (tokenObj) => {
+const createArrFromTokenObj = tokenObj => {
   const arr = [];
-  for(let token in tokenObj) {
-    arr.push({ [token]: tokenObj[token]} )
+  for (let token in tokenObj) {
+    arr.push({ [token]: tokenObj[token] });
   }
   return arr;
-}
+};
 
-const formatData = (arr) => {
-  return arr.map(element => {
-    console.log(element);
-  })
-}
+const formatData = arr => {
+  return arr.map(obj => ({
+    text: Object.keys(obj)[0],
+    value: Object.values(obj)[0]
+  }));
+};
 
 /** @param {array} data */
-const formatDataForD3Cloud = data => {
+const summarizeRawDataForSentiment = data => {
   const sentimentData = createSentimentArr(data);
+
   const totalScore = calculateRawScore(sentimentData);
   const avgScore = parseFloat(totalScore / data.length).toFixed(2);
-  let positiveTokenObj = {};
-  let negativeTokenObj = {};
+
+  const positiveTokenObj = {};
+  const negativeTokenObj = {};
   sentimentData.forEach(comment => {
     const { positive, negative } = comment;
     addToObj(positiveTokenObj, positive);
     addToObj(negativeTokenObj, negative);
   });
+
   const positiveTokenArr = createArrFromTokenObj(positiveTokenObj);
   const negativeTokenArr = createArrFromTokenObj(negativeTokenObj);
 
+  const positiveD3TokenArr = formatData(positiveTokenArr);
+  const negativeD3TokenArr = formatData(negativeTokenArr);
 
-  console.log(`obj:`, {
+  const summarizedData = {
     totalScore,
     avgScore,
     positiveTokenObj,
     negativeTokenObj,
     positiveTokenArr,
-    negativeTokenArr
-  });
-  return sentimentData;
+    negativeTokenArr,
+    positiveD3TokenArr,
+    negativeD3TokenArr
+  };
+
+  console.log({ summarizedData });
+  return summarizedData;
 };
 
-/*
-
-const data = [
-  { text: 'Hey', value: 1000 },
-  { text: 'lol', value: 200 },
-  { text: 'first impression', value: 800 },
-  { text: 'very cool', value: 1000000 },
-  { text: 'duck', value: 10 },
-];
-
-*/
-
-export default formatDataForD3Cloud;
+export default summarizeRawDataForSentiment;
