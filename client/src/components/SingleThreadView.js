@@ -15,15 +15,16 @@ export default class SingleThreadView extends Component {
     const { subId } = this.props.match.params;
     const res = await axios.get(`/reddit/${subId}/comments`);
     const d3Data = summarizeRawDataForSentiment(res.data);
-    console.dir(d3Data);
+    console.dir(`d3Data: `, d3Data);
+    this.positiveD3Data = d3Data.positiveD3TokenArr;
+    this.negativeD3Data = d3Data.negativeD3TokenArr;
     this.setState({
       comments: res.data,
-      d3Data: d3Data.positiveD3TokenArr
     });
   }
   render() {
-    const { comments, d3Data } = this.state;
-    const fontSizeMapper = word => Math.log2(word.value) * 5;
+    const { comments } = this.state;
+    const fontSizeMapper = word => Math.log2(word.value) * 10;
     const rotate = word => word.value % 360;
     if (!comments.length) {
       return <div>Loading...</div>;
@@ -31,7 +32,12 @@ export default class SingleThreadView extends Component {
       return (
         <div>
           <WordCloud
-            data={d3Data}
+            data={this.positiveD3Data}
+            fontSizeMapper={fontSizeMapper}
+            rotate={rotate}
+          />
+          <WordCloud
+            data={this.negativeD3Data}
             fontSizeMapper={fontSizeMapper}
             rotate={rotate}
           />
